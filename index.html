@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Viewport meta is essential for responsive design on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Learn Responsive Web Design with an interactive CSS Flexbox and CSS Grid playground, live demos, code examples, and a fully responsive layout." />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>FlexGrid — Master Responsive Design with Flexbox &amp; CSS Grid</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Set the theme before paint to avoid a flash of the wrong color scheme -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("fg-theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Scroll progress bar fills as the user scrolls the page -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Skip link for keyboard & screen-reader users -->
+  <a href="#home" class="skip-link">Skip to content</a>
+
+  <!-- ===================== HEADER / NAVIGATION ===================== -->
+  <!-- The header uses Flexbox to space the logo and nav apart -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="FlexGrid home">
+        <span class="brand-mark">◈</span> FlexGrid
+      </a>
+
+      <!-- Navigation: a horizontal Flexbox row on desktop, collapsible on mobile -->
+      <nav class="main-nav" id="mainNav" aria-label="Primary navigation">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#compare">Flexbox vs Grid</a></li>
+          <li><a href="#playground">Playground</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Dark / light theme toggle -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+          <span class="theme-icon-sun" aria-hidden="true">☀</span>
+          <span class="theme-icon-moon" aria-hidden="true">☾</span>
+        </button>
+
+        <!-- Hamburger button (shown only on small screens via CSS) -->
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <!-- Hero content laid out with Flexbox: text on one side, visual on the other -->
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div class="hero-text reveal">
+          <p class="eyebrow">A practical, interactive guide to modern CSS layout</p>
+          <h1>Master Responsive Design <span class="gradient-text">the modern way</span></h1>
+          <p class="lead">
+            Two CSS tools solve almost every layout problem. <strong>Flexbox</strong> arranges
+            items along a single axis — ideal for navigation, button groups and centering.
+            <strong>CSS Grid</strong> controls rows and columns at once — ideal for galleries,
+            dashboards and full-page structure. Learn both by playing with them live.
+          </p>
+          <div class="hero-actions">
+            <a href="#playground" class="btn btn-primary">Try the Playground</a>
+            <a href="#gallery" class="btn btn-outline">View Gallery</a>
+          </div>
+
+          <!-- Meaningful stats with counters animated by JS on scroll -->
+          <dl class="hero-stats">
+            <div>
+              <dt><span class="counter" data-target="98" data-suffix="%">0</span></dt>
+              <dd>Global browser support for Flexbox &amp; Grid</dd>
+            </div>
+            <div>
+              <dt><span class="counter" data-target="0">0</span></dt>
+              <dd>CSS frameworks — pure HTML &amp; CSS</dd>
+            </div>
+            <div>
+              <dt><span class="counter" data-target="3">0</span></dt>
+              <dd>Breakpoints: desktop, tablet, mobile</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Decorative animated visual made from a small grid of colored tiles -->
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="tile tile-a"></div>
+          <div class="tile tile-b"></div>
+          <div class="tile tile-c"></div>
+          <div class="tile tile-d"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT SECTION ===================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Why Responsive Design Matters</h2>
+          <p class="section-sub">
+            More than half of all web traffic comes from mobile devices. A layout that
+            only works on one screen size leaves most of your audience behind.
+          </p>
+        </div>
+        <div class="about-grid">
+          <div class="reveal">
+            <h3>The old way</h3>
+            <p>
+              Early websites used fixed pixel widths and floated columns. They looked fine on
+              the designer's monitor but broke on phones — text overflowed, columns collapsed,
+              and users had to pinch and zoom just to read.
+            </p>
+          </div>
+          <div class="reveal">
+            <h3>The modern way</h3>
+            <p>
+              Flexbox and Grid describe <em>relationships</em> between elements rather than fixed
+              sizes. Combined with media queries, the same HTML reflows to fit any screen — no
+              duplicate pages, no horizontal scrolling, no compromises.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES SECTION ===================== -->
+    <!-- Feature cards arranged with CSS Grid using auto-fit for responsiveness -->
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Core Concepts</h2>
+          <p class="section-sub">The four ideas that make a layout truly responsive.</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card reveal">
+            <div class="feature-icon">⇄</div>
+            <h3>Flexbox Layout</h3>
+            <p>
+              A one-dimensional model. Distribute space and align items along a row or column
+              with <code>justify-content</code> and <code>align-items</code>.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">▦</div>
+            <h3>CSS Grid</h3>
+            <p>
+              A two-dimensional model. Define columns and rows explicitly, then place content
+              precisely — perfect for galleries and page skeletons.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">⤢</div>
+            <h3>Media Queries</h3>
+            <p>
+              Apply different styles at different screen widths so spacing, font sizes and
+              column counts adapt to the device.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">📱</div>
+            <h3>Mobile-First</h3>
+            <p>
+              Start with the smallest screen and progressively enhance for larger ones. It keeps
+              CSS lean and forces you to prioritize content.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FLEXBOX vs GRID COMPARISON ===================== -->
+    <section class="section" id="compare">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Flexbox vs CSS Grid — When to Use Which</h2>
+          <p class="section-sub">
+            They are partners, not rivals. Use Grid for the overall page structure and Flexbox
+            for the content inside each area.
+          </p>
+        </div>
+
+        <div class="compare-grid">
+          <!-- Flexbox column with a real code example -->
+          <div class="compare-card reveal">
+            <h3><span class="dot dot-primary"></span> Reach for Flexbox when…</h3>
+            <ul class="checklist">
+              <li>Aligning items in a single row or column</li>
+              <li>Building a navigation bar or button group</li>
+              <li>Centering something vertically and horizontally</li>
+              <li>Content size should decide the layout</li>
+            </ul>
+            <pre class="code-block"><code>.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}</code></pre>
+          </div>
+
+          <!-- Grid column with a real code example -->
+          <div class="compare-card reveal">
+            <h3><span class="dot dot-accent"></span> Reach for CSS Grid when…</h3>
+            <ul class="checklist">
+              <li>Laying out rows and columns together</li>
+              <li>Building a card gallery or dashboard</li>
+              <li>You need overlapping or spanning areas</li>
+              <li>The layout should decide the content flow</li>
+            </ul>
+            <pre class="code-block"><code>.gallery {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== INTERACTIVE PLAYGROUND ===================== -->
+    <!-- Users change Flexbox properties with controls and see the result + live code -->
+    <section class="section section-alt" id="playground">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Live Flexbox Playground</h2>
+          <p class="section-sub">
+            Change the controls and watch the boxes move. The generated CSS updates in real time.
+          </p>
+        </div>
+
+        <div class="playground reveal">
+          <!-- Controls -->
+          <div class="playground-controls">
+            <div class="control">
+              <label for="pgDirection">flex-direction</label>
+              <select id="pgDirection">
+                <option value="row">row</option>
+                <option value="row-reverse">row-reverse</option>
+                <option value="column">column</option>
+                <option value="column-reverse">column-reverse</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="pgJustify">justify-content</label>
+              <select id="pgJustify">
+                <option value="flex-start">flex-start</option>
+                <option value="center">center</option>
+                <option value="flex-end">flex-end</option>
+                <option value="space-between">space-between</option>
+                <option value="space-around">space-around</option>
+                <option value="space-evenly">space-evenly</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="pgAlign">align-items</label>
+              <select id="pgAlign">
+                <option value="stretch">stretch</option>
+                <option value="flex-start">flex-start</option>
+                <option value="center">center</option>
+                <option value="flex-end">flex-end</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="pgWrap">flex-wrap</label>
+              <select id="pgWrap">
+                <option value="nowrap">nowrap</option>
+                <option value="wrap">wrap</option>
+                <option value="wrap-reverse">wrap-reverse</option>
+              </select>
+            </div>
+            <div class="control control-full">
+              <label for="pgGap">gap: <span id="pgGapValue">12</span>px</label>
+              <input type="range" id="pgGap" min="0" max="40" value="12" />
+            </div>
+          </div>
+
+          <!-- Live preview -->
+          <div class="playground-stage" id="pgStage">
+            <span class="pg-box">1</span>
+            <span class="pg-box">2</span>
+            <span class="pg-box">3</span>
+            <span class="pg-box">4</span>
+            <span class="pg-box">5</span>
+          </div>
+
+          <!-- Generated CSS output -->
+          <pre class="code-block playground-code"><code id="pgCode"></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GALLERY / GRID SECTION ===================== -->
+    <!-- Responsive gallery driven entirely by CSS Grid column changes per breakpoint -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Grid Gallery</h2>
+          <p class="section-sub">
+            One grid definition, three layouts. Resize the window: 3+ columns on desktop,
+            2 on tablet, 1 on mobile — the HTML never changes.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <figure class="gallery-card reveal">
+            <img src="https://picsum.photos/id/1018/600/400" alt="Mountain range reflected in a still alpine lake" loading="lazy" />
+            <figcaption>
+              <span class="cap-title">Landscape</span>
+              <span class="cap-note">object-fit keeps every tile the same height</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card reveal">
+            <img src="https://picsum.photos/id/1039/600/400" alt="Waterfall cascading through a lush green valley" loading="lazy" />
+            <figcaption>
+              <span class="cap-title">Nature</span>
+              <span class="cap-note">Cards stretch to fill each grid track</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card reveal">
+            <img src="https://picsum.photos/id/1043/600/400" alt="City skyline lit up at dusk" loading="lazy" />
+            <figcaption>
+              <span class="cap-title">Architecture</span>
+              <span class="cap-note">Hover to zoom and reveal this caption</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card reveal">
+            <img src="https://picsum.photos/id/1062/600/400" alt="Ocean waves rolling onto a sandy beach" loading="lazy" />
+            <figcaption>
+              <span class="cap-title">Coastline</span>
+              <span class="cap-note">gap adds consistent spacing between cards</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card reveal">
+            <img src="https://picsum.photos/id/1074/600/400" alt="Lion resting in tall golden grass" loading="lazy" />
+            <figcaption>
+              <span class="cap-title">Wildlife</span>
+              <span class="cap-note">minmax() sets a minimum card width</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card reveal">
+            <img src="https://picsum.photos/id/1084/600/400" alt="Deer standing in a misty forest clearing" loading="lazy" />
+            <figcaption>
+              <span class="cap-title">Forest</span>
+              <span class="cap-note">auto-fit wraps cards onto new rows</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FLEXBOX DEMONSTRATION SECTION ===================== -->
+    <section class="section section-alt" id="flexbox-demo">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Flexbox in Action</h2>
+          <p class="section-sub">Each box below is the same markup — only the flex properties differ.</p>
+        </div>
+
+        <div class="demo-stack">
+          <!-- Demo 1: flex-direction row + justify-content: space-between -->
+          <div class="demo-block reveal">
+            <h4><code>justify-content: space-between</code></h4>
+            <p class="demo-note">Pushes the first and last items to the edges with equal space between.</p>
+            <div class="flex-demo demo-row-between">
+              <span class="flex-item">1</span>
+              <span class="flex-item">2</span>
+              <span class="flex-item">3</span>
+            </div>
+          </div>
+
+          <!-- Demo 2: flex-direction row + justify-content: center + align-items: center -->
+          <div class="demo-block reveal">
+            <h4><code>justify-content: center</code> · <code>align-items: center</code></h4>
+            <p class="demo-note">Groups items in the middle and vertically centers items of different heights.</p>
+            <div class="flex-demo demo-row-center">
+              <span class="flex-item">A</span>
+              <span class="flex-item tall">B</span>
+              <span class="flex-item">C</span>
+            </div>
+          </div>
+
+          <!-- Demo 3: flex-direction column -->
+          <div class="demo-block reveal">
+            <h4><code>flex-direction: column</code></h4>
+            <p class="demo-note">Switches the main axis to vertical so items stack top to bottom.</p>
+            <div class="flex-demo demo-column">
+              <span class="flex-item">Top</span>
+              <span class="flex-item">Middle</span>
+              <span class="flex-item">Bottom</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RESPONSIVE INFORMATION SECTION ===================== -->
+    <section class="section" id="responsive-info">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>How It Adapts Across Devices</h2>
+          <p class="section-sub">The same content, restructured at each breakpoint for the best reading experience.</p>
+        </div>
+
+        <!-- Three cards laid out with Flexbox that stack on smaller screens -->
+        <div class="adapt-row">
+          <div class="adapt-card reveal">
+            <span class="adapt-badge">Desktop · 993px+</span>
+            <h3>Wide &amp; Multi-column</h3>
+            <p>Generous spacing, 3+ gallery columns and a full horizontal navigation bar. Content spreads out to use the available width.</p>
+          </div>
+          <div class="adapt-card reveal">
+            <span class="adapt-badge">Tablet · 641–992px</span>
+            <h3>Balanced</h3>
+            <p>Grids reduce to two columns and spacing tightens. Navigation stays visible but the layout starts to condense.</p>
+          </div>
+          <div class="adapt-card reveal">
+            <span class="adapt-badge">Mobile · ≤640px</span>
+            <h3>Single Column</h3>
+            <p>Everything stacks into one readable column, buttons go full-width, and the menu collapses behind a hamburger button.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section class="section section-alt" id="testimonials">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>What Learners Say</h2>
+          <p class="section-sub">Feedback from developers who used these patterns.</p>
+        </div>
+
+        <div class="testimonial-grid">
+          <blockquote class="testimonial reveal">
+            <p>“The Flexbox vs Grid section finally made it click. I stopped guessing and started choosing the right tool on purpose.”</p>
+            <footer><span class="avatar">A</span> Aisha R. · Front-end Developer</footer>
+          </blockquote>
+          <blockquote class="testimonial reveal">
+            <p>“The live playground is genius. Dragging the gap slider and watching the code update taught me more than a whole video course.”</p>
+            <footer><span class="avatar">M</span> Marcus T. · Bootcamp Student</footer>
+          </blockquote>
+          <blockquote class="testimonial reveal">
+            <p>“Clean, framework-free code with comments. I copied the patterns straight into my own project.”</p>
+            <footer><span class="avatar">L</span> Lena K. · UI Designer</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ SECTION ===================== -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Frequently Asked Questions</h2>
+          <p class="section-sub">Common questions about responsive layout.</p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item reveal">
+            <summary>Should I use Flexbox or Grid?</summary>
+            <p>Use both. Grid is best for the two-dimensional page structure; Flexbox is best for aligning items within a single row or column. Most real layouts nest Flexbox inside Grid areas.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>What does mobile-first actually mean?</summary>
+            <p>You write your base CSS for the smallest screen first, then use <code>min-width</code> media queries to add complexity for larger screens. It keeps the mobile experience fast and the CSS simple.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>How do I stop horizontal scrolling on mobile?</summary>
+            <p>Use <code>box-sizing: border-box</code>, avoid fixed widths wider than the viewport, set <code>max-width: 100%</code> on images, and add <code>overflow-x: hidden</code> as a safety net.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>Do I need a CSS framework for this?</summary>
+            <p>No. This entire page uses only native HTML and CSS. Flexbox and Grid cover the layout needs that frameworks were originally built to solve.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT SECTION ===================== -->
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Get in Touch</h2>
+          <p class="section-sub">Have a question about the layout techniques shown here? Send a message.</p>
+        </div>
+
+        <div class="contact-wrap">
+          <!-- Contact info column -->
+          <aside class="contact-info reveal">
+            <h3>Contact details</h3>
+            <ul>
+              <li><strong>Email</strong><br />hello@flexgrid.dev</li>
+              <li><strong>Location</strong><br />Remote · Worldwide</li>
+              <li><strong>Response time</strong><br />Within 1–2 business days</li>
+            </ul>
+          </aside>
+
+          <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="What is this about?" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Write your message..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <!-- Footer columns arranged with CSS Grid, collapsing to one column on mobile -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand"><span class="brand-mark">◈</span> FlexGrid</a>
+        <p>A practical, framework-free guide to responsive layout with CSS Flexbox and Grid.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Concepts</a></li>
+          <li><a href="#compare">Flexbox vs Grid</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="#playground">Playground</a></li>
+          <li><a href="#flexbox-demo">Flexbox Demo</a></li>
+          <li><a href="#responsive-info">Breakpoints</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Built With</h4>
+        <ul>
+          <li>HTML5</li>
+          <li>CSS3 Flexbox</li>
+          <li>CSS3 Grid</li>
+          <li>Vanilla JS</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FlexGrid. Built with pure HTML, CSS &amp; JavaScript to demonstrate responsive design.</p>
+    </div>
+  </footer>
+
+  <!-- Back-to-top button, revealed after scrolling down -->
+  <button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
